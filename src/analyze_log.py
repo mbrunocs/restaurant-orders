@@ -36,7 +36,14 @@ def analyze_log(file_path: str):
         all_dishes = [dish for dish in data["pedido"] if dish not in all_dishes]
         maria = extract_customer("maria", data)
         maria_pratos = [ordem["pedido"] for ordem in data if ordem["cliente"] == "maria" and ordem["pedido"] not in maria_pratos]
-
+        
+        with open("data/mkt_campaign.txt", "w") as file:
+            file.write(
+                f"{maria_customer}\n",
+                f"{arnaldo_customer}\n",
+                f"{joao_dishes}\n",
+                f"{joao_days}\n",
+            )
     except FileNotFoundError:
         raise FileNotFoundError(f"Arquivo inexistente: '{file_path}'")
 
