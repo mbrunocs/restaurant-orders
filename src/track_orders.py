@@ -50,10 +50,22 @@ class TrackOrders:
         return days_opened.difference(customer_data["visitas"])
 
     def get_busiest_day(self):
-        pass
+        days_orders = dict()
+        for _, _, day in self.orders:
+            if day not in days_orders:
+                days_orders[day] = 1
+            else:
+                days_orders[day] += 1
+        return max(days_orders, key=days_orders.get)
 
     def get_least_busy_day(self):
-        pass
+        days_orders = dict()
+        for _, _, day in self.orders:
+            if day not in days_orders:
+                days_orders[day] = 1
+            else:
+                days_orders[day] += 1
+        return min(days_orders, key=days_orders.get)
 
     def get_number_dish_ordered_per_customer(self, customer: str, dish: str):
         customer_data = extract_customer(customer, self.orders)
