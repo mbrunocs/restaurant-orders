@@ -5,9 +5,9 @@ from src.track_orders import TrackOrders
 def analyze_log(file_path: str):
     if not file_path.endswith(".csv"):
         raise FileNotFoundError(f"Extensão inválida:'{file_path}'")
-
     analyze = TrackOrders()
     try:
+
         with open(file_path, encoding="utf-8") as file:
             file_reader = csv.reader(file)
             for c, p, d in file_reader:
@@ -24,8 +24,8 @@ def analyze_log(file_path: str):
 
     with open("data/mkt_campaign.txt", "w") as file:
         file.write(
-f"""{maria_favorite_dish}
-{arnaldo_burger_eater}
-{joao_dishes_unordered}
-{joao_days_away}""",
-    )
+            f"{maria_favorite_dish}\n"
+            f"{arnaldo_burger_eater}\n"
+            f"{joao_dishes_unordered}\n"
+            f"{joao_days_away}"
+        )
