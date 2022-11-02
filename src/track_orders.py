@@ -32,10 +32,19 @@ class TrackOrders:
         return max(count, key=count.get)
 
     def get_never_ordered_per_customer(self, customer):
-        pass
+        customer_data = extract_customer(customer, self.orders)
+        count = dict()
+        for dish in customer_data["pedidos"]:
+            if dish not in count:
+                count[dish] = 1
+            else:
+                count[dish] += 1
+        return min(count, key=count.get)
 
     def get_days_never_visited_per_customer(self, customer):
-        pass
+        customer_data = extract_customer(customer, self.orders)
+        days_opened = set(order[2] for order in self.orders)
+        return days_opened.difference(customer_data["visitas"])
 
     def get_busiest_day(self):
         pass
