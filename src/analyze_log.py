@@ -15,8 +15,6 @@ def analyze_log(file_path: str):
 
     except FileNotFoundError:
         raise FileNotFoundError(f"Arquivo inexistente: '{file_path}'")
-    except (KeyError, TypeError):
-        raise KeyError()
 
     maria_favorite_dish = analyze.get_most_ordered_dish_per_customer("maria")
     arnaldo_burger_eater = analyze.get_number_dish_ordered_per_customer(
