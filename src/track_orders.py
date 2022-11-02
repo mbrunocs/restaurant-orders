@@ -11,6 +11,16 @@ def extract_customer(customer: str, data):
     return customer_data
 
 
+def count_dishes(list_dishes):
+    count = dict()
+    for dish in list_dishes:
+        if dish not in count:
+            count[dish] = 1
+        else:
+            count[dish] += 1
+    return count
+
+
 class TrackOrders:
     def __init__(self):
         self.orders = list()
@@ -23,23 +33,13 @@ class TrackOrders:
 
     def get_most_ordered_dish_per_customer(self, customer):
         customer_data = extract_customer(customer, self.orders)
-        count = dict()
-        for dish in customer_data["pedidos"]:
-            if dish not in count:
-                count[dish] = 1
-            else:
-                count[dish] += 1
-        return max(count, key=count.get)
+        dishes_order = count_dishes(customer_data["pedidos"])
+        return max(dishes_order, key=dishes_order.get)
 
     def get_never_ordered_per_customer(self, customer):
         customer_data = extract_customer(customer, self.orders)
-        count = dict()
-        for dish in customer_data["pedidos"]:
-            if dish not in count:
-                count[dish] = 1
-            else:
-                count[dish] += 1
-        return min(count, key=count.get)
+        dishes_order = count_dishes(customer_data["pedidos"])
+        return min(dishes_order, key=dishes_order.get)
 
     def get_days_never_visited_per_customer(self, customer):
         customer_data = extract_customer(customer, self.orders)
@@ -52,5 +52,7 @@ class TrackOrders:
     def get_least_busy_day(self):
         pass
 
-    def get_dish_orders_per_customer(self, customer, dish):
-        pass
+    def get_number_dish_ordered_per_customer(self, customer: str, dish: str):
+        customer_data = extract_customer(customer, self.orders)
+        dishes_order = count_dishes(customer_data["pedidos"])
+        return dishes_order[dish]
