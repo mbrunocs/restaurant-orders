@@ -1,13 +1,13 @@
 def extract_customer(customer: str, data):
     customer_data = dict({
-        "name": customer,
+        "name": customer.lower(),
         "visitas": [],
         "pedidos": [],
     })
-    for i, cliente in enumerate(data["cliente"]):
-        if cliente == customer:
-            customer_data["visitas"].append(data["dia"][i])
-            customer_data["pedidos"].append(data["pedido"][i])
+    for order in data:
+        if order[0] == customer.lower():
+            customer_data["visitas"].append(order[2])
+            customer_data["pedidos"].append(order[1])
     return customer_data
 
 
@@ -22,7 +22,14 @@ class TrackOrders:
         self.orders.append([customer, order, day])
 
     def get_most_ordered_dish_per_customer(self, customer):
-        pass
+        customer_data = extract_customer(customer, self.orders)
+        count = dict()
+        for dish in customer_data["pedidos"]:
+            if dish not in count:
+                count[dish] = 1
+            else:
+                count[dish] += 1
+        return max(count, key=count.get)
 
     def get_never_ordered_per_customer(self, customer):
         pass
