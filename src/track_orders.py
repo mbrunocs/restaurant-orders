@@ -12,7 +12,7 @@ def extract_customer(customer: str, data):
 
 
 def count_dishes(list_dishes, more_dishes = list()):
-    if len(more_dishes) > 0: 
+    if len(more_dishes) > 0:
         count = {x: 0 for x in count_dishes(more_dishes)}
     else:
         count = dict()

@@ -4,7 +4,7 @@ from src.track_orders import TrackOrders
 
 def analyze_log(file_path: str):
     if not file_path.endswith(".csv"):
-        raise NotImplementedError(f"Extensão inválida:'{file_path}'")
+        raise FileNotFoundError(f"Extensão inválida:'{file_path}'")
 
     try:
         analyze = TrackOrders()
@@ -20,10 +20,10 @@ def analyze_log(file_path: str):
 
         with open("data/mkt_campaign.txt", "w") as file:
             file.write(
-                f"{maria_favorite_dish}\n",
-                f"{arnaldo_burger_eater}\n",
-                f"{joao_dishes_unordered}\n",
-                f"{joao_days_away}\n",
+f"""{maria_favorite_dish}
+{arnaldo_burger_eater}
+{joao_dishes_unordered}
+{joao_days_away}""",
             )
     except FileNotFoundError:
         raise FileNotFoundError(f"Arquivo inexistente: '{file_path}'")
