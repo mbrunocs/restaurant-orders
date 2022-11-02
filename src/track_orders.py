@@ -11,8 +11,11 @@ def extract_customer(customer: str, data):
     return customer_data
 
 
-def count_dishes(list_dishes):
-    count = dict()
+def count_dishes(list_dishes, more_dishes = list()):
+    if len(more_dishes) > 0: 
+        count = {x: 0 for x in count_dishes(more_dishes)}
+    else:
+        count = dict()
     for dish in list_dishes:
         if dish not in count:
             count[dish] = 1
@@ -38,8 +41,8 @@ class TrackOrders:
 
     def get_never_ordered_per_customer(self, customer):
         customer_data = extract_customer(customer, self.orders)
-        dishes_order = count_dishes(customer_data["pedidos"])
-        return min(dishes_order, key=dishes_order.get)
+        all_dishes = set(order[1] for order in self.orders)
+        return all_dishes.difference(set(customer_data["pedidos"]))
 
     def get_days_never_visited_per_customer(self, customer):
         customer_data = extract_customer(customer, self.orders)
